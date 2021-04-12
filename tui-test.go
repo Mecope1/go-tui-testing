@@ -26,7 +26,7 @@ func main() {
 	num := 1
 
 	p.Title = "Channel " + strconv.Itoa(num)
-	//p.WrapText = true
+	p.WrapText = true
 
 	// These are included to move the cursor to the end of the list.
 	// Otherwise the terminal will be 2 place behind the newest element, unless the user moves it themselves.
@@ -36,7 +36,6 @@ func main() {
 	q := widgets.NewParagraph()
 	q.WrapText = true
 	q.SetRect(0, 0, 100, 4)
-	//p.SetRect(0, 0, termWidth, termHeight-50)
 
 	grid := ui.NewGrid()
 
@@ -55,19 +54,8 @@ func main() {
 
 	for e := range ui.PollEvents() {
 
-		//if e.Type == ui.ResizeEvent {
-		//	ui.Render(p)
-		//}
-
 		if e.Type == ui.ResizeEvent {
 			termWidth, termHeight := ui.TerminalDimensions()
-			//p.SetRect(0, 0, termWidth-50, termHeight-50)
-			//p.Rows = append(p.Rows, "\nwidth: " +  strconv.Itoa(termWidth) + " height: " + strconv.Itoa(termHeight))
-
-			// These two are here for the same reason that they appeared above. This just pushes the cursor to the front.
-			//p.ScrollDown()
-			//p.ScrollDown()
-			// This line redefines the size of the application, which is necessary when the terminal itself is resized.
 			grid.SetRect(0, 0, termWidth, termHeight)
 		} else if e.Type == ui.KeyboardEvent || e.Type == ui.MouseEvent {
 			switch e.ID {
